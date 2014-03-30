@@ -1,0 +1,16 @@
+---
+- name: Install python-tk
+  apt: pkg={{item}} state=present
+  with_items:
+    - python-tk
+    - subversion
+
+- name: Install python-xlib
+  pip: name='svn+https://svn.code.sf.net/p/python-xlib/code/tags/xlib_0_15rc1'
+
+- name: Clone selfspy repo
+  git: repo=https://github.com/gurgeh/selfspy.git dest=~/opt/selfspy
+
+- name: Run setup
+  shell: chdir=~/opt/selfspy python setup.py install
+  sudo: yes
